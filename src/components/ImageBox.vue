@@ -1,7 +1,6 @@
 <template>
 	<div
 		class="w-full bg-rose-100 rounded-md shadow-sm overflow-hidden relative"
-		v-if="!imageError"
 	>
 		<loading-overlay :loading="loading" />
 
@@ -10,10 +9,7 @@
 			:src="src"
 			fit="cover"
 			hide-on-click-modal
-			lazy
-			@error="imageError = true"
 			@load="loading = false"
-			:preview-src-list="[src]"
 		/>
 		<div class="w-full absolute left-0 bottom-0 bg-slate-800/70 backdrop-blur-sm">
 			<div class="p-2">
