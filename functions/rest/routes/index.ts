@@ -46,8 +46,6 @@ router.post('/checkToken', async (req: Request, env: Env) => {
 
 // list image
 router.post('/list', auth, async (req: Request, env: Env) => {
-    const BASE_URL = await env.XK.get('BASE_URL')
-    console.log("BASE_URL=" + BASE_URL)
     const data = await req.json() as ImgReq
     if (!data.limit) {
         data.limit = 10
@@ -76,7 +74,7 @@ router.post('/list', auth, async (req: Request, env: Env) => {
     const objs = list.objects
     const urls = objs.map(it => {
         return <ImgItem>{
-            url: `${BASE_URL}/${it.key}`,
+            url: `/rest/${it.key}`,
             key: it.key,
             size: it.size
         }
@@ -91,7 +89,6 @@ router.post('/list', auth, async (req: Request, env: Env) => {
 
 // batch upload file
 router.post('/upload', auth, async (req: Request, env: Env) => {
-    const BASE_URL = await env.XK.get('BASE_URL')
     const files = await req.formData()
     const images = files.getAll("files")
     const errs = []
@@ -114,7 +111,7 @@ router.post('/upload', auth, async (req: Request, env: Env) => {
             urls.push({
                 key: object.key,
                 size: object.size,
-                url:  `${BASE_URL}/${object.key}`,
+                url:  `/rest/${object.key}`,
                 filename: item.name
             })
         }
