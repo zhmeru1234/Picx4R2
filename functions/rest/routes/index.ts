@@ -2,7 +2,7 @@ import { router } from '../router';
 import { Env } from '../[[path]]'
 import { json } from 'itty-router-extras';
 import StatusCode, { Ok, Fail, Build, ImgItem, ImgList, ImgReq, Folder, AuthToken, FailCode, NotAuth } from "../type";
-import { checkFileType, getFileName, parseRange } from '../utils'
+import { checkFileType, getFilePath, parseRange } from '../utils'
 import { R2ListOptions } from "@cloudflare/workers-types";
 
 const auth = async (request: Request, env: Env) => {
@@ -103,11 +103,11 @@ router.post('/upload', auth, async (req: Request, env: Env) => {
             continue
         }
         const time = new Date().getTime()
-        const filename = await getFileName(fileType, time)
+        const objecPath = await getFilePath(fileType, time)
         const header = new Headers()
         header.set("content-type", fileType)
         header.set("content-length", `${item.size}`)
-        const object = await env.PICX.put(filename, item.stream(), {
+        const object = await env.PICX.put(objecPath, item.stream(), {
             httpMetadata: header,
         }) as R2Object
         if (object || object.key) {

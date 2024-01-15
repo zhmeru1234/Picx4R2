@@ -1,4 +1,4 @@
-const supportFiles = [{type:'image/png',ext:'png'},{type:'image/jpeg',ext:'jpeg'},{type:'image/gif',ext:'gif'},{type:'image/webp',ext:'webp'},{type:'image/jpg',ext:'jpg'},{type:'image/x-icon',ext:'ico'},{type:'application/x-ico',ext:'ico'},{type:'image/vnd.microsoft.icon',ext:'ico'}]
+const supportFiles = [{ type: 'image/png', ext: 'png' }, { type: 'image/jpeg', ext: 'jpeg' }, { type: 'image/gif', ext: 'gif' }, { type: 'image/webp', ext: 'webp' }, { type: 'image/jpg', ext: 'jpg' }, { type: 'image/x-icon', ext: 'ico' }, { type: 'application/x-ico', ext: 'ico' }, { type: 'image/vnd.microsoft.icon', ext: 'ico' }]
 const supportFile = 'image/png,image/jpeg,image/gif,image/webp,image/jpg,image/x-icon,application/x-ico,image/vnd.microsoft.icon'
 
 // 字符串编码
@@ -8,7 +8,7 @@ export function randomString(value: number) {
     let maxPos = baseStr.length;
     const uuid = [];
     let q = value;
-    for(;q > 0;) {
+    for (; q > 0;) {
         let mod = q % maxPos;
         q = (q - mod) / maxPos;
         uuid.push(chars[mod]);
@@ -27,22 +27,27 @@ export function parseRange(encoded: string | null): undefined | { offset: number
     }
     return {
         offset: Number(parts[0]),
-        end:    Number(parts[1]),
+        end: Number(parts[1]),
         length: Number(parts[1]) + 1 - Number(parts[0]),
     }
 }
 
 // 检查文件类是否支持
-export function checkFileType(val : string) : boolean {
+export function checkFileType(val: string): boolean {
     return supportFile.indexOf(val) > -1
 }
 
 // 获取文件名
-export async function getFileName(val : string, time : number) : Promise<string> {
+export async function getFilePath(val: string, time: number): Promise<string> {
     const types = supportFiles.filter(it => it.type === val)
     if (!types || types.length < 1) {
         return val
     }
     const rand = Math.floor(Math.random() * 100000)
-    return randomString(time + rand).concat(`.${types[0].ext}`)
+    const fileName = randomString(time + rand).concat(`.${types[0].ext}`)
+    let date = new Date()
+    const year = date.getFullYear() //获取完整的年份(4位)
+    const month = date.getMonth() + 1 //获取当前月份(0-11,0代表1月)
+    return "/" + year + "/" + month + "/" + fileName
+
 }
