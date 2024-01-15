@@ -76,7 +76,7 @@ router.post('/list', auth, async (req: Request, env: Env) => {
     const objs = list.objects
     const urls = objs.map(it => {
         return <ImgItem>{
-            url: BASE_URL + `${include}/${it.key}`,
+            url: `${BASE_URL}/${it.key}`,
             key: it.key,
             size: it.size
         }
@@ -114,7 +114,7 @@ router.post('/upload', auth, async (req: Request, env: Env) => {
             urls.push({
                 key: object.key,
                 size: object.size,
-                url: BASE_URL + `/${object.key}`,
+                url:  `${BASE_URL}/${object.key}`,
                 filename: item.name
             })
         }
