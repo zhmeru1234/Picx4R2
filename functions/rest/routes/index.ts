@@ -17,7 +17,7 @@ const auth = async (request: Request, env: Env) => {
         return json(NotAuth())
     }
     // with kv equal
-    const authKey = await env.XK.get('PICX_AUTH_TOKEN')
+    const authKey = env.AUTH_TOKEN;
     if (!authKey) {
         return json(Fail("system not auth setting"))
     }
@@ -34,7 +34,7 @@ router.post('/checkToken', async (req: Request, env: Env) => {
     if (!token) {
         return json(Ok(false))
     }
-    const authKey = await env.XK.get('PICX_AUTH_TOKEN')
+    const authKey = env.AUTH_TOKEN;
     if (!authKey) {
         return json(Ok(false))
     }
@@ -46,7 +46,6 @@ router.post('/checkToken', async (req: Request, env: Env) => {
 
 // list image
 router.post('/list', auth, async (req: Request, env: Env) => {
-    const COPY_URL = await env.XK.get('COPY_URL')
     const data = await req.json() as ImgReq
     if (!data.limit) {
         data.limit = 10
@@ -68,7 +67,7 @@ router.post('/list', auth, async (req: Request, env: Env) => {
         delimiter: data.delimiter,
         prefix: include
     }
-    const list = await env.PICX.list(options)
+    const list = await env.R2.list(options)
     // console.log(list)
     const truncated = list.truncated ? list.truncated : false
     const cursor = list.cursor
@@ -76,7 +75,7 @@ router.post('/list', auth, async (req: Request, env: Env) => {
     const urls = objs.map(it => {
         return <ImgItem>{
             url: `/rest/${it.key}`,
-            copyUrl: `${COPY_URL}/${it.key}`,
+            copyUrl: `${env.COPY_URL}/${it.key}`,
             key: it.key,
             size: it.size
         }
@@ -91,7 +90,6 @@ router.post('/list', auth, async (req: Request, env: Env) => {
 
 // batch upload file
 router.post('/upload', auth, async (req: Request, env: Env) => {
-    const COPY_URL = await env.XK.get('COPY_URL')
     const files = await req.formData()
     const images = files.getAll("files")
     const errs = []
@@ -107,15 +105,15 @@ router.post('/upload', auth, async (req: Request, env: Env) => {
         const header = new Headers()
         header.set("content-type", fileType)
         header.set("content-length", `${item.size}`)
-        const object = await env.PICX.put(objecPath, item.stream(), {
+        const object = await env.R2.put(objecPath, item.stream(), {
             httpMetadata: header,
         }) as R2Object
         if (object || object.key) {
             urls.push({
                 key: object.key,
                 size: object.size,
-                copyUrl: `${COPY_URL}/${object.key}`,
-                url:  `/rest/${object.key}`,
+                copyUrl: `${env.COPY_URL}/${object.key}`,
+                url: `/rest/${object.key}`,
                 filename: item.name
             })
         }
@@ -131,7 +129,7 @@ router.post("/folder", auth, async (req: Request, env: Env) => {
         if (!regx.test(data.name)) {
             return json(Fail("Folder name error"))
         }
-        await env.PICX.put(data.name + '/', null)
+        await env.R2.put(data.name + '/', null)
         return json(Ok("Success"))
     } catch (e) {
         return json(Fail("Create folder fail"))
@@ -145,7 +143,7 @@ router.get('/del/:id+', async (req: Request, env: Env) => {
         return json(Fail("not delete key"))
     }
     try {
-        await env.PICX.delete(key)
+        await env.R2.delete(key)
     } catch (e) {
         console.log(`img delete error:${e.message}`,)
     }
@@ -164,7 +162,7 @@ router.delete("/", auth, async (req: Request, env: Env) => {
     try {
         for (let it of arr) {
             if (it && it.length) {
-                await env.PICX.delete(it)
+                await env.R2.delete(it)
             }
         }
     } catch (e) {
@@ -177,7 +175,7 @@ router.delete("/", auth, async (req: Request, env: Env) => {
 router.get("/:id+", async (req: Request, env: Env) => {
     let id = req.params.id
     const range = parseRange(req.headers.get('range'))
-    const object = await env.PICX.get(id, {
+    const object = await env.R2.get(id, {
         range,
         onlyIf: req.headers,
     })
