@@ -121,23 +121,26 @@ const clearInput = () => {
 }
 
 const clipboardUpload = () => {
-	const clipboardContents = await navigator.clipboard.read();
-	for (const item of clipboardContents) {
-		if (!item.types.includes("image/png")) {
-			throw new Error("剪切板中不是图片！");
-		}
-		const blob = await item.getType("image/png");
-		const file = new File([blob], "clipboard.png", {
-			type: "image/png",
-		});
-		convertedImages.value = [
-			...convertedImages.value,
-			{
-				file,
-				tmpSrc: URL.createObjectURL(file)
+	navigator.clipboard.read().then(clipboardContents => {
+		for (const item of clipboardContents) {
+			if (!item.types.includes("image/png")) {
+				throw new Error("剪切板中不是图片！");
 			}
-		]
-	}
+			item.getType("image/png").then(blob => {
+				const file = new File([blob], "clipboard.png", {
+					type: "image/png",
+				});
+				convertedImages.value = [
+					...convertedImages.value,
+					{
+						file,
+						tmpSrc: URL.createObjectURL(file)
+					}
+				]
+			});
+		}
+	});
+
 }
 
 const appendConvertedImages = async (files: FileList | null | undefined) => {
