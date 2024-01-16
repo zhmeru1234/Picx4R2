@@ -40,7 +40,7 @@
 					已选择 {{ convertedImages.length }} 张，共 {{ formatBytes(imagesTotalSize) }}
 				</div>
 			</div>
-			
+
 			<div class="md:col-span-1 col-span-3">
 				<div class="w-full bg-red-500 cursor-pointer h-10 flex items-center justify-center text-white" :class="{
 					'area-disabled': loading
@@ -76,10 +76,10 @@
 <script setup lang="ts">
 import { faImages, faTrashAlt, faCopy } from '@fortawesome/free-regular-svg-icons'
 import { faUpload } from '@fortawesome/free-solid-svg-icons'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, h } from 'vue'
 import LoadingOverlay from '../components/LoadingOverlay.vue'
 import formatBytes from '../utils/format-bytes'
-import { ElNotification as elNotify } from 'element-plus'
+import { ElNotification as elNotify, ElMessage } from 'element-plus'
 import { requestUploadImages } from '../utils/request'
 import { useRouter } from 'vue-router'
 import ImageBox from '../components/ImageBox.vue'
@@ -137,6 +137,11 @@ const clipboardUpload = () => {
 						}
 					]
 				});
+			} else {
+				ElMessage({
+					message: '剪切板中不是图片！',
+					type: 'warning',
+				})
 			}
 		}
 	});
