@@ -40,14 +40,7 @@
 					已选择 {{ convertedImages.length }} 张，共 {{ formatBytes(imagesTotalSize) }}
 				</div>
 			</div>
-			<div class="md:col-span-1 col-span-3">
-				<div class="w-full bg-red-500 cursor-pointer h-10 flex items-center justify-center text-white" :class="{
-					'area-disabled': loading
-				}" @click="clipboardUpload">
-					<font-awesome-icon :icon="faTrashAlt" class="mr-2" />
-					剪切板上传
-				</div>
-			</div>
+			
 			<div class="md:col-span-1 col-span-3">
 				<div class="w-full bg-red-500 cursor-pointer h-10 flex items-center justify-center text-white" :class="{
 					'area-disabled': loading
@@ -56,7 +49,14 @@
 					清除
 				</div>
 			</div>
-
+			<div class="md:col-span-1 col-span-3">
+				<div class="w-full bg-sky-500  cursor-pointer h-10 flex items-center justify-center text-white" :class="{
+					'area-disabled': loading
+				}" @click="clipboardUpload">
+					<font-awesome-icon :icon="faTrashAlt" class="mr-2" />
+					上传剪切板
+				</div>
+			</div>
 			<div class="md:col-span-1 col-span-5">
 				<div class="w-full h-10 flex items-center justify-center text-white bg-green-500 cursor-pointer" :class="{
 					'area-disabled': convertedImages.length === 0 || loading
@@ -123,21 +123,21 @@ const clearInput = () => {
 const clipboardUpload = () => {
 	navigator.clipboard.read().then(clipboardContents => {
 		for (const item of clipboardContents) {
-			if (!item.types.includes("image/png")) {
-				throw new Error("剪切板中不是图片！");
-			}
-			item.getType("image/png").then(blob => {
-				const file = new File([blob], "clipboard.png", {
-					type: "image/png",
+			if (item.types.includes("image/png")) {
+
+				item.getType("image/png").then(blob => {
+					const file = new File([blob], "clipboard.png", {
+						type: "image/png",
+					});
+					convertedImages.value = [
+						...convertedImages.value,
+						{
+							file,
+							tmpSrc: URL.createObjectURL(file)
+						}
+					]
 				});
-				convertedImages.value = [
-					...convertedImages.value,
-					{
-						file,
-						tmpSrc: URL.createObjectURL(file)
-					}
-				]
-			});
+			}
 		}
 	});
 
