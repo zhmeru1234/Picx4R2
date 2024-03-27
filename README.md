@@ -36,7 +36,7 @@ A free image service based on cloudflare Pages & R2.
 5. 设置环境变量
 
     1. `AUTH_TOKEN`：授权码，这个可以自定义填写，后面页面登录需要用到；
-    2. `COPY_URL`：复制的路径，如无，则填写 `pages 域名 (e.g. https://xxx.pages.dev)`；
+    2. `COPY_URL`：复制的路径，如有 R2 存储桶自定义域名则填写自定义域名，否则开启并填写公共 R2.dev 存储桶的 URL；
     3. `NODE_VERSION`：`20.11.1`；
     4. `NPM_VERSION`：`10.2.4`。
     
