@@ -56,8 +56,8 @@ import { useRouter } from 'vue-router'
 import { ElScrollbar, ElConfigProvider } from 'element-plus'
 import zhCn from "element-plus/es/locale/lang/zh-cn"
 
-const repoLink = 'https://blog.lianglianglee.com'
-const repoName = '墓灵守护'
+const repoLink = 'https://github.com/shenweiyan/Picx4R2'
+const repoName = 'GitHub'
 const appName = '图床管理工具'
 
 document.title = appName
