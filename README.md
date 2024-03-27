@@ -1,10 +1,14 @@
 # Picx4R2
 
-### 一款基于 Cloudflare 的 Worker、R2、Pages 实现的图床应用，具有以下特点：
+A free image service based on cloudflare Pages & R2.
 
-* 10GB 的免费存储空间
+这是一款基于 Cloudflare 的 Worker、R2、Pages 实现的图床应用。
+
+### 具有以下特点
+
+* 10GB 的免费存储空间。
 * 每月 300W 次的不计流量的图片访问，每天 10W 的限制。
-* 每月 100W 次的图片上传次数
+* 每月 100W 次的图片上传次数。
 * 不需要自己购买服务器，克隆代码后部署 CloudFlare 即可使用。
 * 独立部署不需要担心被第三方删除数据。
 
@@ -31,8 +35,10 @@
 4. 完成创建
 5. 设置环境变量
 
-    1. `AUTH_TOKEN`：授权码，这个可以自定义填写，后面页面登录需要用到
-    2. `COPY_URL`：复制的路径，如无，则输入`page域名/rest`
+    1. `AUTH_TOKEN`：授权码，这个可以自定义填写，后面页面登录需要用到；
+    2. `COPY_URL`：复制的路径，如无，则填写 `pages 域名 (e.g. https://xxx.pages.dev)`；
+    3. `NODE_VERSION`：`20.11.1`；
+    4. `NPM_VERSION`：`10.2.4`。
     
 6. 创建 KV 命名空间
 
