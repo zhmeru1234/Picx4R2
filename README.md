@@ -1,11 +1,11 @@
-# roim-picx
+# Picx4R2
 
-### 一款基于Cloudflare的Worker、R2、Pages实现的图床应用，具有以下特点：
+### 一款基于 Cloudflare 的 Worker、R2、Pages 实现的图床应用，具有以下特点：
 
-* 10GB的免费存储空间
-* 每月300W次的不计流量的图片访问，每天10W的限制。
-* 每月100W次的图片上传次数
-* 不需要自己购买服务器，克隆代码后部署CloudFlare即可使用。
+* 10GB 的免费存储空间
+* 每月 300W 次的不计流量的图片访问，每天 10W 的限制。
+* 每月 100W 次的图片上传次数
+* 不需要自己购买服务器，克隆代码后部署 CloudFlare 即可使用。
 * 独立部署不需要担心被第三方删除数据。
 
 ### 已实现功能
@@ -36,18 +36,22 @@
     
 6. 创建 KV 命名空间
 
-在 "Workers 和 Pages" 创建 KV 命名空间。
+    1. 在 "Workers 和 Pages" 创建 KV 命名空间。
+    ![](https://static.weiyan.tech/picx/kv.webp)
 
 7. 设置函数，KV 命名空间绑定
 
-回到 cloudflare page，点击 "设置" → "函数" 中 "KV 命名空间绑定"。
+    1. 回到 cloudflare page，点击 "设置" → "函数" 中 "KV 命名空间绑定"。
+    ![](https://static.weiyan.tech/picx/kv-name.webp)
    
 8. 设置函数，绑定 R2
 
    变量名为：`R2`
+   ![](https://static.weiyan.tech/picx/r2-storage.webp)
    
-9. 重新部署
+10. 重新部署
 
----
 
-项目fork自[roimdev/roim-picx](https://github.com/roimdev/roim-picx)
+### 感谢
+
+本项目 fork 自 [liangliangle/roim-picx](https://github.com/liangliangle/roim-picx)
