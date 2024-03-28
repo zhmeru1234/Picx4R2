@@ -100,8 +100,9 @@ router.post('/upload', auth, async (req: Request, env: Env) => {
             errs.push(`${fileType} not support.`)
             continue
         }
+	const fname = item.name
         const time = new Date().getTime()
-        const objecPath = await getFilePath(fileType, time)
+        const objecPath = await getFilePath(fileType, fname, time)
         const header = new Headers()
         header.set("content-type", fileType)
         header.set("content-length", `${item.size}`)

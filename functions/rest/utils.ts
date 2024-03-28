@@ -38,7 +38,7 @@ export function checkFileType(val: string): boolean {
 }
 
 // 获取文件名
-export async function getFilePath(val: string, time: number): Promise<string> {
+export async function getFilePath(val: string, fname: string, time: number): Promise<string> {
     const types = supportFiles.filter(it => it.type === val)
     if (!types || types.length < 1) {
         return val
@@ -52,7 +52,7 @@ export async function getFilePath(val: string, time: number): Promise<string> {
     if (month < 10) {
         month = `0${month}`;
     }
-    return `${year}/${month}/${val}`
+    return `${year}/${month}/${fname}`
 
 }
 
