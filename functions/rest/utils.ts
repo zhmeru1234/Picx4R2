@@ -44,7 +44,8 @@ export async function getFilePath(val: string, time: number): Promise<string> {
         return val
     }
     const rand = Math.floor(Math.random() * 100000)
-    const fileName = randomString(time + rand).concat(`.${types[0].ext}`)
+    //const fileName = randomString(time + rand).concat(`.${types[0].ext}`)
+    const fileName = types[0].filePath
     let date = new Date()
     const year = date.getFullYear() //获取完整的年份(4位)
     let month = date.getMonth() + 1 //获取当前月份(0-11,0代表1月)
@@ -54,3 +55,6 @@ export async function getFilePath(val: string, time: number): Promise<string> {
     return `${year}/${month}/${fileName}`
 
 }
+
+// 获取原始文件名
+
