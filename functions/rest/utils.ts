@@ -38,13 +38,13 @@ export function checkFileType(val: string): boolean {
 }
 
 // 获取文件名
-export async function getFilePath(val: string, fname: string, time: number): Promise<string> {
+export async function getFilePath(val: string, filename: string, time: number): Promise<string> {
     const types = supportFiles.filter(it => it.type === val)
     if (!types || types.length < 1) {
         return val
     }
     const rand = Math.floor(Math.random() * 100000)
-    //const fileName = randomString(time + rand).concat(`.${types[0].ext}`)
+    const fileName = randomString(time + rand).concat(`.${types[0].ext}`)
     
     let date = new Date()
     const year = date.getFullYear() //获取完整的年份(4位)
@@ -52,9 +52,8 @@ export async function getFilePath(val: string, fname: string, time: number): Pro
     if (month < 10) {
         month = `0${month}`;
     }
-    return `${year}/${month}/${fname}`
+    return `${year}/${month}/${filename}`
 
 }
 
-// 获取原始文件名
 
