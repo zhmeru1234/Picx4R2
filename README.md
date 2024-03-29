@@ -12,7 +12,7 @@ A free image service based on cloudflare Pages & R2.
 * 不需要自己购买服务器，克隆代码后部署 CloudFlare 即可使用。
 * 独立部署不需要担心被第三方删除数据。
 
-![cf-r2-price](https://static.weiyan.tech/r2/cf-r2-price.webp)
+![cf-r2-price](https://static.weiyan.tech/r2/cloudflare-r2-price.webp)
 
 ### 已实现功能
 
