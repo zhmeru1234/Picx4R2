@@ -6,11 +6,13 @@ A free image service based on cloudflare Pages & R2.
 
 ### 具有以下特点
 
-* 10GB 的免费存储空间。
-* 每月 300W 次的不计流量的图片访问，每天 10W 的限制。
-* 每月 100W 次的图片上传次数。
+* 每月 10GB 的免费存储空间。
+* 每月 100 万次 (1 million requests/month) 的 A 类操作。
+* 每月 1000 万次 (10 million requests/month) B 类操作。
 * 不需要自己购买服务器，克隆代码后部署 CloudFlare 即可使用。
 * 独立部署不需要担心被第三方删除数据。
+
+![cf-r2-price](https://static.weiyan.tech/r2/cf-r2-price.webp)
 
 ### 已实现功能
 
