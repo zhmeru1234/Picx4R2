@@ -24,7 +24,7 @@ A free image service based on cloudflare Pages & R2.
 * 链接地址点击复制
 * 简单的身份认证功能，进入管理页面需要授权
 
-### 使用教程
+### 部署教程
 
 1. Fork 项目到自己的 GitHub
 2. 创建 Page 项目
@@ -59,6 +59,26 @@ A free image service based on cloudflare Pages & R2.
    
 10. 重新部署
 
+## 使用教程
+
+1. 登录页面
+   ![picx4r2-login](https://static.weiyan.tech/picx/picx4r2-login.png)
+
+2. 登录后的界面
+   ![picx4r2-main](https://static.weiyan.tech/picx/picx4r2-main.png)
+
+3. 上传图片界面
+   ![picx4r2-upload](https://static.weiyan.tech/picx/picx4r2-upload.png)
+
+4. 图片管理界面
+   ![picx4r2-manage](https://static.weiyan.tech/picx/picx4r2-manage.png)
+
+## 已知问题
+
+1. 上传的图片默认按照 **`Year/Month`** 的路径保存，无法上传到指定的目录。
+2. 新建目录后，在新建的目录下会默认生成一个 **未命名的对象**，目前这个对象需要登录 Cloudflare R2 才能删除。
+
+对于已知问题，如果有小伙伴已经有解决方案，欢迎 PR 或者其他任何的方式告知一下，非常感谢。
 
 ### 感谢
 
