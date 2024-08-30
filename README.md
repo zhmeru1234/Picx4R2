@@ -1,4 +1,4 @@
-# Picx4R2
+## Picx4R2
 
 A free image service based on cloudflare Pages & R2.
 
@@ -23,6 +23,13 @@ A free image service based on cloudflare Pages & R2.
 * 按目录查询
 * 链接地址点击复制
 * 简单的身份认证功能，进入管理页面需要授权
+
+### 已知问题
+
+1. 上传的图片默认按照 **`Year/Month`** 的路径保存，无法上传到指定的目录。
+2. 新建目录后，在新建的目录下会默认生成一个 **未命名的对象**，目前这个对象需要登录 Cloudflare R2 才能删除。
+
+对于已知问题，如果有小伙伴已经有解决方案，欢迎 PR 或者其他任何的方式告知一下，非常感谢。
 
 ### 部署教程
 
@@ -73,12 +80,6 @@ A free image service based on cloudflare Pages & R2.
 4. 图片管理界面
    ![picx4r2-manage](https://static.weiyan.tech/picx/picx4r2-manage.png)
 
-## 已知问题
-
-1. 上传的图片默认按照 **`Year/Month`** 的路径保存，无法上传到指定的目录。
-2. 新建目录后，在新建的目录下会默认生成一个 **未命名的对象**，目前这个对象需要登录 Cloudflare R2 才能删除。
-
-对于已知问题，如果有小伙伴已经有解决方案，欢迎 PR 或者其他任何的方式告知一下，非常感谢。
 
 ### 感谢
 
