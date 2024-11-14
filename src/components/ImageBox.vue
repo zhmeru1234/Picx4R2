@@ -2,8 +2,7 @@
 	<div class="relative w-full overflow-hidden rounded-md shadow-sm bg-rose-100">
 		<loading-overlay :loading="loading" />
 
-		<el-image class="block w-full h-40 lg:h-60" :src="copyUrl" fit="cover" hide-on-click-modal
-			@load="loading = false" />
+		<el-image class="block w-full h-40 lg:h-60" :src="src" fit="cover" hide-on-click-modal @load="loading = false" />
 		<div class="absolute bottom-0 left-0 w-full bg-slate-800/70 backdrop-blur-sm">
 			<div class="p-2">
 				<div class="flex items-center w-full text-white">
