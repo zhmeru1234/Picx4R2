@@ -1,33 +1,23 @@
 <template>
-	<div
-		class="w-full bg-rose-100 rounded-md shadow-sm overflow-hidden relative"
-	>
+	<div class="relative w-full overflow-hidden rounded-md shadow-sm bg-rose-100">
 		<loading-overlay :loading="loading" />
 
-		<el-image
-			class="block w-full h-40 lg:h-60"
-			:src="src"
-			fit="cover"
-			hide-on-click-modal
-			@load="loading = false"
-		/>
-		<div class="w-full absolute left-0 bottom-0 bg-slate-800/70 backdrop-blur-sm">
+		<el-image class="block w-full h-40 lg:h-60" :src="copyUrl" fit="cover" hide-on-click-modal
+			@load="loading = false" />
+		<div class="absolute bottom-0 left-0 w-full bg-slate-800/70 backdrop-blur-sm">
 			<div class="p-2">
-				<div class="w-full flex items-center text-white">
+				<div class="flex items-center w-full text-white">
 					<div class="flex-1 w-full truncate">
 						<el-tooltip :content="name" placement="top-start">
 							{{ name }}
 						</el-tooltip>
 					</div>
-					<div
-						v-if="mode === 'converted'"
-						class="w-6 h-6 flex items-center justify-center cursor-pointer"
-						@click="emit('delete')"
-					>
+					<div v-if="mode === 'converted'" class="flex items-center justify-center w-6 h-6 cursor-pointer"
+						@click="emit('delete')">
 						<font-awesome-icon :icon="faTimesCircle" />
 					</div>
 				</div>
-				<span class="text-xs text-gray-300 flex items-center">
+				<span class="flex items-center text-xs text-gray-300">
 					{{ formatBytes(size) }}
 					<el-divider v-if="uploadedAt" direction="vertical" />
 					<span v-if="uploadedAt">
@@ -37,31 +27,24 @@
 			</div>
 			<div v-if="mode === 'uploaded'">
 				<el-divider class="m-0" />
-				<div class="w-full flex text-white h-9 text-center text-sm">
+				<div class="flex w-full text-sm text-center text-white h-9">
 					<el-tooltip :content="copyUrl" placement="top-start">
-						<div
-							class="flex-1 flex items-center justify-center cursor-pointer"
-							@click="copyLink(copyUrl)"
-						>
+						<div class="flex items-center justify-center flex-1 cursor-pointer" @click="copyLink(copyUrl)">
 							<font-awesome-icon :icon="faCopy" class="mr-2" />
 							链接
 						</div>
 					</el-tooltip>
 					<el-divider direction="vertical" class="h-full" />
-					<el-popconfirm
-						title="确认删除图片吗？"
-						confirm-button-type="danger"
-						@confirm="
+					<el-popconfirm title="确认删除图片吗？" confirm-button-type="danger" @confirm="
 							() => {
 								// (e: Event) => boolean ???
 								loading = true
 								emit('delete')
 								return true
 							}
-						"
-					>
+						">
 						<template #reference>
-							<div class="flex-1 flex items-center justify-center cursor-pointer">
+							<div class="flex items-center justify-center flex-1 cursor-pointer">
 								<font-awesome-icon :icon="faTrashAlt" class="mr-2" />
 								删除
 							</div>
