@@ -1,8 +1,9 @@
 <template>
-  <div class="mx-auto max-w-6xl my-4 px-4 relative">
-    <div class="mx-auto max-w-2xl mt-10">
+  <div class="relative max-w-6xl px-4 mx-auto my-4">
+    <div class="w-[320px] mx-auto mt-10">
       <el-input v-model="token" size="large" class="h-12" placeholder="请输入认证Token" />
-      <el-button :loading="loading" class="mt-4 w-full lg:w-6xl" size="large" type="primary" @click="saveToken">保存</el-button>
+      <el-button :loading="loading" class="w-full mt-4 lg:w-6xl" size="large" type="primary"
+        @click="saveToken">保存</el-button>
     </div>
   </div>
 </template>
