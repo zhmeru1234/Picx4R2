@@ -19,7 +19,7 @@
 
 				<transition-group name="el-fade-in-linear">
 					<div class="col-span-3 md:col-span-1" v-for="item in convertedImages" :key="item.tmpSrc">
-						<image-box :src="item.tmpSrc" :size="item.file.size" :name="item.file.name"
+						<image-box :src="item.tmpSrc" :size="item.file.size" :name="generateNewFilename(item.file)"
 							@delete="removeImage(item.tmpSrc)" mode="converted" />
 					</div>
 				</transition-group>
@@ -132,7 +132,10 @@ const clipboardUpload = () => {
 					convertedImages.value = [
 						...convertedImages.value,
 						{
-							file,
+							file: file: new File([file], generateNewFilename(file), {
+					type: file.type,
+					lastModified: file.lastModified
+				}),
 							tmpSrc: URL.createObjectURL(file)
 						}
 					]
@@ -174,7 +177,10 @@ const appendConvertedImages = async (files: FileList | null | undefined) => {
 		convertedImages.value = [
 			...convertedImages.value,
 			{
-				file,
+				file: file: new File([file], generateNewFilename(file), {
+					type: file.type,
+					lastModified: file.lastModified
+				}),
 				tmpSrc: URL.createObjectURL(file)
 			}
 		]
@@ -187,23 +193,19 @@ const removeImage = (tmpSrc: string) => {
 	URL.revokeObjectURL(tmpSrc)
 }
 
-function generateUUID() {
-	function s4() {
-		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-	}
-	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+function generateNewFilename(file: File) {
+	const ext = file.name.split('.').pop()?.toLowerCase()
+	const timestamp = new Date().getTime()
+	const random = Math.random().toString(36).substring(2, 10)
+	return `image_${timestamp}_${random}.${ext}`
 }
+
 	
 const uploadImages = () => {
 	loading.value = true
 
 	const formData = new FormData()
-	for (let item of convertedImages.value.map(i => ({
-		...i, file: {
-			...i.file,
-			name: generateUUID()
-		}
-	}))) {
+	for (let item of convertedImages.value) {
 		formData.append('files', item.file)
 	}
 
