@@ -132,7 +132,7 @@ const clipboardUpload = () => {
 					convertedImages.value = [
 						...convertedImages.value,
 						{
-							file: file: new File([file], generateNewFilename(file), {
+							file: new File([file], generateNewFilename(file), {
 					type: file.type,
 					lastModified: file.lastModified
 				}),
@@ -177,7 +177,7 @@ const appendConvertedImages = async (files: FileList | null | undefined) => {
 		convertedImages.value = [
 			...convertedImages.value,
 			{
-				file: file: new File([file], generateNewFilename(file), {
+				file: new File([file], generateNewFilename(file), {
 					type: file.type,
 					lastModified: file.lastModified
 				}),
