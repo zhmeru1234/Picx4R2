@@ -187,11 +187,23 @@ const removeImage = (tmpSrc: string) => {
 	URL.revokeObjectURL(tmpSrc)
 }
 
+function generateUUID() {
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+	}
+	return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+	
 const uploadImages = () => {
 	loading.value = true
 
 	const formData = new FormData()
-	for (let item of convertedImages.value) {
+	for (let item of convertedImages.value.map(i => ({
+		...i, file: {
+			...i.file,
+			name: generateUUID()
+		}
+	}))) {
 		formData.append('files', item.file)
 	}
 
